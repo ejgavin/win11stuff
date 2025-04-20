@@ -3,14 +3,13 @@ import React, { useEffect, useState } from "react";
 function App() {
   const [url, setUrl] = useState("");
   const [disableScroll, setDisableScroll] = useState(false);
-  const [addSandbox, setAddSandbox] = useState(false);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     let dest = params.get("destination");
     const cors = params.get("cors") === "true";
     const stay = params.get("stay");
-    const redirectStop = params.get("redirectstop") === "true";
+    const blockAds = params.get("ads") === "true";
 
     if (dest) {
       if (!/^https?:\/\//i.test(dest)) {
@@ -21,7 +20,6 @@ function App() {
         dest = `https://corsstuff.vercel.app/api/proy?url=${encodeURIComponent(dest)}`;
       }
 
-      // Disable scrolling for specific sites when stay=true
       if (
         stay === "true" &&
         (dest.includes("easyfun.gg") || dest.startsWith("https://roblx-ten.vercel.app"))
@@ -29,14 +27,19 @@ function App() {
         setDisableScroll(true);
       }
 
-      // Apply sandbox for inv.nadeko.net if redirectstop is true
-      if (redirectStop && dest.includes("inv.nadeko.net")) {
-        setAddSandbox(true);
+      if (blockAds) {
+        injectAdBlockCSS();
       }
 
       setUrl(dest);
     }
   }, []);
+
+  const injectAdBlockCSS = () => {
+    const style = document.createElement("style");
+    style.innerHTML = `/* your adblock CSS here */`;
+    document.head.appendChild(style);
+  };
 
   if (!url) {
     return (
@@ -85,11 +88,10 @@ function App() {
           height: "98vh",
         }}
         scrolling={disableScroll ? "no" : "yes"}
-        sandbox={addSandbox ? "allow-forms allow-scripts" : undefined}
+        sandbox="allow-scripts allow-presentation allow-same-origin"
       />
     </div>
   );
 }
 
 export default App;
-
