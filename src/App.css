@@ -1,0 +1,38 @@
+/* App.css */
+
+html, body, #root {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+}
+
+.simple-browser {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.simple-browser iframe {
+  border: none;
+  width: 100%;
+  height: 100%;
+}
+
+.no-destination {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: sans-serif;
+  color: #555;
+}
+
+.no-destination code {
+  background-color: #eee;
+  padding: 2px 4px;
+}

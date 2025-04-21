@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import "./App.css";
 
 function App() {
   const [url, setUrl] = useState("");
@@ -43,23 +44,12 @@ function App() {
 
   if (!url) {
     return (
-      <div
-        style={{
-          height: "100vh",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          fontFamily: "sans-serif",
-          color: "#555",
-        }}
-      >
+      <div className="no-destination">
         <div>
           <h2>No destination set</h2>
           <p>
             Add{" "}
-            <code style={{ backgroundColor: "#eee", padding: "2px 4px" }}>
-              ?destination=example.com
-            </code>{" "}
+            <code>?destination=example.com</code>{" "}
             to the URL.
           </p>
         </div>
@@ -68,25 +58,10 @@ function App() {
   }
 
   return (
-    <div
-      style={{
-        width: "100vw",
-        height: "100vh",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        overflow: "hidden",
-        position: "relative",
-      }}
-    >
+    <div className="simple-browser">
       <iframe
         src={url}
         title="Proy Frame"
-        style={{
-          border: "none",
-          width: "98vw",
-          height: "98vh",
-        }}
         scrolling={disableScroll ? "no" : "yes"}
         sandbox="allow-scripts allow-presentation allow-same-origin"
       />
